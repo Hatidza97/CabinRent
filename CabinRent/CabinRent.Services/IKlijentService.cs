@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CabinRent.Model.Requests;
+using CabinRent.Model.SearchObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +12,9 @@ namespace CabinRent.Services
     {
         Model.Klijent GetById(int id);
         bool Delete(int id);
-        //Model.Klijent Update(int id, KlijentUpdateRequest request);
-        //List<Model.Klijent> Get(KlijentSearchRequest request);
-        //Model.Klijent Insert(KlijentInsertRequest request);
+        Model.Klijent Update(int id, KlijentUpdateRequest request);
+        List<Model.Klijent> Get(KlijentSearchRequest request);
+        Model.Klijent Insert(KlijentInsertRequest request);
 
     }
 }

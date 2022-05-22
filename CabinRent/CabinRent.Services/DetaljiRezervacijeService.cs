@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CabinRent.Model.Requests;
 using CabinRent.Services.Database;
 using System;
 using System.Collections.Generic;
@@ -28,17 +29,17 @@ namespace CabinRent.Services
             return _mapper.Map<Model.DetaljiRezervacije>(entity);
         }
 
-        //public Model.DetaljiRezervacije Update(int id, DetaljiRezervacijeUpdateRequest request)
-        //{
-        //    var entity = _context.DetaljiRezervacijes.Find(id);
+        public Model.DetaljiRezervacije Update(int id, DetaljiRezervacijeUpdateRequest request)
+        {
+            var entity = _context.DetaljiRezervacijes.Find(id);
 
-        //    _context.DetaljiRezervacijes.Attach(entity);
-        //    _context.DetaljiRezervacijes.Update(entity);
-        //    _mapper.Map(request, entity);
-        //    _context.SaveChanges();
+            _context.DetaljiRezervacijes.Attach(entity);
+            _context.DetaljiRezervacijes.Update(entity);
+            _mapper.Map(request, entity);
+            _context.SaveChanges();
 
-        //    return _mapper.Map<Model.DetaljiRezervacije>(entity);
-        //}
+            return _mapper.Map<Model.DetaljiRezervacije>(entity);
+        }
 
     }
 }

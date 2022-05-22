@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using CabinRent.Model.Requests;
+using CabinRent.Model.SearchObjects;
 using CabinRent.Services.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,59 +37,60 @@ namespace CabinRent.Services
             }
             return false;
         }
-        //public List<Model.Rezervacija> Get(RezervacijaSearchRequest request)
-        //{
-        //    var query = context.Rezervacijas.Include(x => x.DetaljiRezervacijes)
-        //        .AsQueryable();
-        //    //if (!string.IsNullOrWhiteSpace(request.Otkazano.ToString()))
-        //    //{
-        //    //    query = query.Where(x => x.Otkazano!=0);
-        //    //}
-        //    //if (!string.IsNullOrWhiteSpace(request.Prezime))
-        //    //{
-        //    //    query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
-        //    //}
-        //    //if (!string.IsNullOrWhiteSpace(request.Telefon))
-        //    //{
-        //    //    query = query.Where(x => x.Telefon.Contains(request.Telefon));
-        //    //}
-        //    //if (!string.IsNullOrWhiteSpace(request.Username))
-        //    //{
-        //    //    query = query.Where(x => x.KorisnickoIme == request.Username);
-        //    //}
-        //    //if (!string.IsNullOrWhiteSpace(request.Email))
-        //    //{
-        //    //    query = query.Where(x => x.Email.StartsWith(request.Email));
-        //    //}
+        public List<Model.Rezervacija> Get(RezervacijaSearchRequest request)
+        {
+            var query = context.Rezervacijas.Include(x => x.DetaljiRezervacijes)
+                .AsQueryable();
+            //if (!string.IsNullOrWhiteSpace(request.Otkazano.ToString()))
+            //{
+            //    query = query.Where(x => x.Otkazano!=0);
+            //}
+            //if (!string.IsNullOrWhiteSpace(request.Prezime))
+            //{
+            //    query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
+            //}
+            //if (!string.IsNullOrWhiteSpace(request.Telefon))
+            //{
+            //    query = query.Where(x => x.Telefon.Contains(request.Telefon));
+            //}
+            //if (!string.IsNullOrWhiteSpace(request.Username))
+            //{
+            //    query = query.Where(x => x.KorisnickoIme == request.Username);
+            //}
+            //if (!string.IsNullOrWhiteSpace(request.Email))
+            //{
+            //    query = query.Where(x => x.Email.StartsWith(request.Email));
+            //}
 
-        //    var list = query.ToList();
-        //    return _mapper.Map<List<Model.Rezervacija>>(list);
-        //}
-        //public Model.Rezervacija Insert(RezervacijaInsertRequest request)
-        //{
-        //    var entity = _mapper.Map<Database.Rezervacija>(request);
-        //    entity.Datum = request.Datum;
-        //    entity.DatumPrijave = request.DatumPrijave;
-        //    entity.DatumOdjave = request.DatumOdjave;
-        //    entity.BrojDjece = request.BrojDjece;
-        //    entity.BrojOdraslih = request.BrojOdraslih;
-        //    entity.Otkazano = request.Otkazano;
-        //    context.Rezervacijas.Add(entity);
+            var list = query.ToList();
+            return _mapper.Map<List<Model.Rezervacija>>(list);
+        }
+        public Model.Rezervacija Insert(RezervacijaInsertRequest request)
+        {
+            var entity = _mapper.Map<Database.Rezervacija>(request);
+            entity.DatumPrijave = request.DatumPrijave;
+            entity.DatumOdjave = request.DatumOdjave;
+            entity.BrojDjece = request.BrojDjece;
+            entity.BrojOdraslih = request.BrojOdraslih;
+            entity.Otkazano = request.Otkazano;
+            entity.KlijentId = request.KlijentId;
+            entity.ObjekatId= request.ObjekatId;
+            context.Rezervacijas.Add(entity);
 
-        //    context.SaveChanges();
-        //    return _mapper.Map<Model.Rezervacija>(entity);
-        //}
-        //public Model.Rezervacija Update(int id, RezervacijaUpdateRequest request)
-        //{
-        //    var entity = context.Rezervacijas.Find(id);
+            context.SaveChanges();
+            return _mapper.Map<Model.Rezervacija>(entity);
+        }
+        public Model.Rezervacija Update(int id, RezervacijaUpdateRequest request)
+        {
+            var entity = context.Rezervacijas.Find(id);
 
-        //    context.Rezervacijas.Attach(entity);
-        //    context.Rezervacijas.Update(entity);
+            context.Rezervacijas.Attach(entity);
+            context.Rezervacijas.Update(entity);
 
-        //    _mapper.Map(request, entity);
-        //    context.SaveChanges();
+            _mapper.Map(request, entity);
+            context.SaveChanges();
 
-        //    return _mapper.Map<Model.Rezervacija>(entity);
-        //}
+            return _mapper.Map<Model.Rezervacija>(entity);
+        }
     }
 }

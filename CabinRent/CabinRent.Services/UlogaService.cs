@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CabinRent.Model.Requests;
+using CabinRent.Model.SearchObjects;
 using CabinRent.Services.Database;
 using System;
 using System.Collections.Generic;
@@ -34,31 +36,31 @@ namespace CabinRent.Services
             }
             return false;
         }
-        //public List<Model.Uloga> Get(UlogaSearchRequest request)
-        //{
-        //    var query = context.Ulogas
-        //        //.Include(x => x.UlogaId)
-        //        .AsQueryable();
-        //    if (!string.IsNullOrWhiteSpace(request.Naziv))
-        //    {
-        //        query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
-        //    }
+        public List<Model.Uloga> Get(UlogaSearchRequest request)
+        {
+            var query = context.Ulogas
+                //.Include(x => x.UlogaId)
+                .AsQueryable();
+            if (!string.IsNullOrWhiteSpace(request.Naziv))
+            {
+                query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
+            }
 
 
-        //    var list = query.ToList();
-        //    return _mapper.Map<List<Model.Uloga>>(list);
-        //}
-        ////public Model.Uloga Update(int id, UlogaUpdateRequest request)
-        //{
-        //    var entity = context.Ulogas.Find(id);
+            var list = query.ToList();
+            return _mapper.Map<List<Model.Uloga>>(list);
+        }
+        public Model.Uloga Update(int id, UlogaUpdateRequest request)
+        {
+            var entity = context.Ulogas.Find(id);
 
-        //    context.Ulogas.Attach(entity);
-        //    context.Ulogas.Update(entity);
+        context.Ulogas.Attach(entity);
+            context.Ulogas.Update(entity);
 
-        //    _mapper.Map(request, entity);
-        //    context.SaveChanges();
+            _mapper.Map(request, entity);
+            context.SaveChanges();
 
-        //    return _mapper.Map<Model.Uloga>(entity);
-        //}
-    }
+            return _mapper.Map<Model.Uloga>(entity);
+        }
+}
 }

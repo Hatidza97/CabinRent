@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CabinRent.Model.Requests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace CabinRent.Services
     {
         List<Model.DetaljiRezervacije> Get();
         Model.DetaljiRezervacije GetById(int id);
-        //Model.DetaljiRezervacije Update(int id, DetaljiRezervacijeUpdateRequest request);
+        Model.DetaljiRezervacije Update(int id, DetaljiRezervacijeUpdateRequest request);
     }
 }

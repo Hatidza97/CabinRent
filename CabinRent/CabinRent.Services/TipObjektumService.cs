@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CabinRent.Model.SearchObjects;
 using CabinRent.Services.Database;
 using System;
 using System.Collections.Generic;
@@ -26,18 +27,18 @@ namespace CabinRent.Services
             var entity = _context.TipObjekta.Find(id);
             return _mapper.Map<Model.TipObjektum>(entity);
         }
-        //public List<Model.TipObjektum> Get(TipObjektumSearchRequest search)
-        //{
-        //    var query = _context.TipObjekta
-        //        .AsQueryable();
-        //    if (!string.IsNullOrWhiteSpace(search.Tip))
-        //    {
-        //        query = query.Where(x => x.Tip.StartsWith(search.Tip));
-        //    }
+        public List<Model.TipObjektum> Get(TipObjektumSearchRequest search)
+        {
+            var query = _context.TipObjekta
+                .AsQueryable();
+            if (!string.IsNullOrWhiteSpace(search.Tip))
+            {
+                query = query.Where(x => x.Tip.StartsWith(search.Tip));
+            }
 
-        //    var list = query.ToList();
-        //    return _mapper.Map<List<Model.TipObjektum>>(list);
-        //}
+            var list = query.ToList();
+            return _mapper.Map<List<Model.TipObjektum>>(list);
+        }
 
 
     }

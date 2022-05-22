@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CabinRent.Model.SearchObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace CabinRent.Services
     {
         //List<Model.TipObjektum> Get();
         Model.TipObjektum GetById(int id);
-        //List<Model.TipObjektum> Get(TipObjektumSearchRequest search);
+        List<Model.TipObjektum> Get(TipObjektumSearchRequest search);
     }
 
 }

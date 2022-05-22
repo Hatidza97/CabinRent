@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CabinRent.Model.Requests;
+using CabinRent.Model.SearchObjects;
 using CabinRent.Services.Database;
 
 namespace CabinRent.Services
@@ -38,34 +40,34 @@ namespace CabinRent.Services
             }
             return false;
         }
-        //public List<Model.Objekat> Get(ObjekatSearchRequest request)
-        //{
-        //    var query = _context.Objekats
-        //        .AsQueryable();
-        //    if (!string.IsNullOrWhiteSpace(request.Naziv))
-        //    {
-        //        query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
-        //    }
-        //    //if (!string.IsNullOrWhiteSpace(request.Cijena.ToString()))
-        //    //{
-        //    //    query = query.Where(x => x.Povrsina.StartsWith(request.Cijena.ToString()));
-        //    //}
+        public List<Model.Objekat> Get(ObjekatSearchRequest request)
+        {
+            var query = _context.Objekats
+                .AsQueryable();
+            if (!string.IsNullOrWhiteSpace(request.Naziv))
+            {
+                query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
+            }
+            //if (!string.IsNullOrWhiteSpace(request.Cijena.ToString()))
+            //{
+            //    query = query.Where(x => x.Povrsina.StartsWith(request.Cijena.ToString()));
+            //}
 
-        //    var list = query.ToList();
-        //    return _mapper.Map<List<Model.Objekat>>(list);
-        //}
-        //public Model.Objekat Update(int id, ObjekatUpdateRequest request)
-        //{
-        //    var entity = _context.Objekats.Find(id);
+            var list = query.ToList();
+            return _mapper.Map<List<Model.Objekat>>(list);
+        }
+        public Model.Objekat Update(int id, ObjekatUpdateRequest request)
+        {
+            var entity = _context.Objekats.Find(id);
 
-        //    _context.Objekats.Attach(entity);
-        //    _context.Objekats.Update(entity);
+            _context.Objekats.Attach(entity);
+            _context.Objekats.Update(entity);
 
-        //    _mapper.Map(request, entity);
-        //    _context.SaveChanges();
+            _mapper.Map(request, entity);
+            _context.SaveChanges();
 
-        //    return _mapper.Map<Model.Objekat>(entity);
-        //}
+            return _mapper.Map<Model.Objekat>(entity);
+        }
         //public Model.Objekat SearchTip(ObjekatTipSearchRequest request)
         //{
         //    var entity = _mapper.Map<Database.Objekat>(request);
@@ -73,24 +75,24 @@ namespace CabinRent.Services
         //    entity.TipObjekta.Tip = request.Tip;
         //    return _mapper.Map<Model.Objekat>(entity);
         //}
-        //public Model.Objekat Insert(ObjekatInsertRequest request)
-        //{
-        //    var entity = _mapper.Map<Database.Objekat>(request);
-        //    entity.Naziv = request.Naziv;
-        //    entity.Povrsina = request.Povrsina;
-        //    entity.BrojMjestaDjeca = request.BrojMjestaDjeca;
-        //    entity.BrojMjestaOdrasli = request.BrojMjestaOdrasli;
-        //    entity.BrojMjestaUkupno = request.BrojMjestaUkupno;
-        //    entity.Cijena = request.Cijena;
-        //    entity.Opis = request.Opis;
-        //    entity.KorisnikId = 4;//OVO POPRAVITI DA IDE BEZ ID
-        //    entity.TipObjektaId = 1;//OVO POPRAVITI DA IDE BEZ ID
-        //    entity.GradId = 1;//OVO POPRAVITI DA IDE BEZ ID
-        //    _context.Objekats.Add(entity);
+        public Model.Objekat Insert(ObjekatInsertRequest request)
+        {
+            var entity = _mapper.Map<Database.Objekat>(request);
+            entity.Naziv = request.Naziv;
+            entity.Povrsina = request.Povrsina;
+            entity.BrojMjestaDjeca = request.BrojMjestaDjeca;
+            entity.BrojMjestaOdrasli = request.BrojMjestaOdrasli;
+            entity.BrojMjestaUkupno = request.BrojMjestaUkupno;
+            entity.Cijena = request.Cijena;
+            entity.Opis = request.Opis;
+            entity.KorisnikId = 4;//OVO POPRAVITI DA IDE BEZ ID
+            entity.TipObjektaId = 1;//OVO POPRAVITI DA IDE BEZ ID
+            entity.GradId = 1;//OVO POPRAVITI DA IDE BEZ ID
+            _context.Objekats.Add(entity);
 
-        //    _context.SaveChanges();
-        //    return _mapper.Map<Model.Objekat>(entity);
-        //}
+            _context.SaveChanges();
+            return _mapper.Map<Model.Objekat>(entity);
+        }
 
     }
 }
