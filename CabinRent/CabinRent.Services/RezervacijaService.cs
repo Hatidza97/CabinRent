@@ -40,27 +40,14 @@ namespace CabinRent.Services
         public List<Model.Rezervacija> Get(RezervacijaSearchRequest request)
         {
             var query = context.Rezervacijas.Include(x => x.DetaljiRezervacijes)
+                .Include(x=>x.Klijent)
+                .Include(x=>x.Objekat)
                 .AsQueryable();
             //if (!string.IsNullOrWhiteSpace(request.Otkazano.ToString()))
             //{
-            //    query = query.Where(x => x.Otkazano!=0);
+            //    query = query.Where(x => x.Otkazano != false);
             //}
-            //if (!string.IsNullOrWhiteSpace(request.Prezime))
-            //{
-            //    query = query.Where(x => x.Prezime.StartsWith(request.Prezime));
-            //}
-            //if (!string.IsNullOrWhiteSpace(request.Telefon))
-            //{
-            //    query = query.Where(x => x.Telefon.Contains(request.Telefon));
-            //}
-            //if (!string.IsNullOrWhiteSpace(request.Username))
-            //{
-            //    query = query.Where(x => x.KorisnickoIme == request.Username);
-            //}
-            //if (!string.IsNullOrWhiteSpace(request.Email))
-            //{
-            //    query = query.Where(x => x.Email.StartsWith(request.Email));
-            //}
+            
 
             var list = query.ToList();
             return _mapper.Map<List<Model.Rezervacija>>(list);

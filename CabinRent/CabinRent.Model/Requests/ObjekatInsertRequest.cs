@@ -21,6 +21,10 @@ namespace CabinRent.Model.Requests
         [Required]
         //[MinLength(2)]
         public double Cijena { get; set; }
+        public int TipObjektaId { get; set; }
+        public int KorisnikId { get; set; }
+        public int GradId { get; set; }
+        public bool Rezervisan { get; set; }
 
     }
 }

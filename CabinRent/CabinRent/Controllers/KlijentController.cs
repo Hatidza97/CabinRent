@@ -1,4 +1,6 @@
-﻿using CabinRent.Services;
+﻿using CabinRent.Model.Requests;
+using CabinRent.Model.SearchObjects;
+using CabinRent.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
@@ -24,20 +26,20 @@ namespace CabinRent.Controllers
         {
             return _service.Delete(id);
         }
-        //[HttpGet]
-        //public ActionResult<List<Model.Klijent>> Get([FromQuery] KlijentSearchRequest search = null)
-        //{
-        //    return _service.Get(search);
-        //}
-        //[HttpPut("{id}")]
-        //public ActionResult<Model.Klijent> Update(int id, [FromBody] KlijentUpdateRequest request)
-        //{
-        //    return _service.Update(id, request);
-        //}
-        //[HttpPost]
-        //public ActionResult<Model.Klijent> Insert(KlijentInsertRequest request)
-        //{
-        //    return _service.Insert(request);
-        //}
+        [HttpGet]
+        public ActionResult<List<Model.Klijent>> Get([FromQuery] KlijentSearchRequest search = null)
+        {
+            return _service.Get(search);
+        }
+        [HttpPut("{id}")]
+        public ActionResult<Model.Klijent> Update(int id, [FromBody] KlijentUpdateRequest request)
+        {
+            return _service.Update(id, request);
+        }
+        [HttpPost]
+        public ActionResult<Model.Klijent> Insert(KlijentInsertRequest request)
+        {
+            return _service.Insert(request);
+        }
     }
 }

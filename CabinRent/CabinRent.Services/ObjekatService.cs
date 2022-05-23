@@ -85,9 +85,10 @@ namespace CabinRent.Services
             entity.BrojMjestaUkupno = request.BrojMjestaUkupno;
             entity.Cijena = request.Cijena;
             entity.Opis = request.Opis;
-            entity.KorisnikId = 4;//OVO POPRAVITI DA IDE BEZ ID
-            entity.TipObjektaId = 1;//OVO POPRAVITI DA IDE BEZ ID
-            entity.GradId = 1;//OVO POPRAVITI DA IDE BEZ ID
+            entity.Rezervisan = request.Rezervisan;
+            entity.KorisnikId = request.KorisnikId;
+            entity.TipObjektaId = request.TipObjektaId;
+            entity.GradId = request.GradId;
             _context.Objekats.Add(entity);
 
             _context.SaveChanges();

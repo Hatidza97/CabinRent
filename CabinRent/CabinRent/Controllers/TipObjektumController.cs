@@ -1,4 +1,5 @@
-﻿using CabinRent.Services;
+﻿using CabinRent.Model.SearchObjects;
+using CabinRent.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
@@ -23,11 +24,11 @@ namespace CabinRent.Controllers
         {
             return _service.GetById(id);
         }
-        //[HttpGet]
-        //public ActionResult<List<Model.TipObjektum>> Get([FromQuery] TipObjektumSearchRequest search = null)
-        //{
-        //    return _service.Get(search);
-        //}
+        [HttpGet]
+        public ActionResult<List<Model.TipObjektum>> Get([FromQuery] TipObjektumSearchRequest search = null)
+        {
+            return _service.Get(search);
+        }
     }
 
 }

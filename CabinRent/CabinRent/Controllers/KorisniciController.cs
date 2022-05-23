@@ -1,4 +1,6 @@
 ﻿using CabinRent.Model;
+using CabinRent.Model.Requests;
+using CabinRent.Model.SearchObjects;
 using CabinRent.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,25 +32,25 @@ namespace CabinRent.Controllers
         {
             return _service.Delete(id);
         }
-        //[HttpGet]
-        //public ActionResult<List<Model.Korisnik>> Get([FromQuery] KorisniciSearchRequest search = null)
-        //{
-        //    return _service.Get(search);
-        //}
-        //[HttpPost]
-        //public ActionResult<Model.Korisnik> Insert(KorisniciInsertRequest request)
-        //{
-        //    return _service.Insert(request);
-        //}
-        //[HttpPut("{id}")]
-        //public ActionResult<Model.Korisnik> Update(int id, [FromBody] KorisniciUpdateRequest request)
-        //{
-        //    return _service.Update(id, request);
-        //}
-        //[HttpPost("signUp")]
-        //public ActionResult<Model.Korisnik> SignUp(KorisniciUpdateRequest request)
-        //{
-        //    return _service.SignUp(request);
-        //}
+        [HttpGet]
+        public ActionResult<List<Model.Korisnik>> Get([FromQuery] KorisniciSearchRequest search = null)
+        {
+            return _service.Get(search);
+        }
+        [HttpPost]
+        public ActionResult<Model.Korisnik> Insert(KorisniciInsertRequest request)
+        {
+            return _service.Insert(request);
+        }
+        [HttpPut("{id}")]
+        public ActionResult<Model.Korisnik> Update(int id, [FromBody] KorisniciUpdateRequest request)
+        {
+            return _service.Update(id, request);
+        }
+        [HttpPost("signUp")]
+        public ActionResult<Model.Korisnik> SignUp(KorisniciUpdateRequest request)
+        {
+            return _service.SignUp(request);
+        }
     }
 }

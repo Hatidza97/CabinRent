@@ -47,7 +47,11 @@ namespace CabinRent.Services
         {
             var entity = _mapper.Map<Database.Korisnik>(request);
             entity.Ime = request.Ime;
+            entity.Prezime = request.Prezime;
             entity.Email = request.Email;
+            entity.Telefon = request.Telefon;
+            entity.KorisnickoIme = request.KorisnickoIme;
+            entity.Slika = request.Slika;
             entity.LozinkaSalt = GenerateSalt();
             entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Sifra);
             context.Korisniks.Add(entity);

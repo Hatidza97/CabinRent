@@ -1,4 +1,5 @@
-﻿using CabinRent.Services;
+﻿using CabinRent.Model.Requests;
+using CabinRent.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
@@ -20,11 +21,11 @@ namespace CabinRent.Controllers
         {
             return _service.GetById(id);
         }
-        //[HttpPut("{id}")]
-        //public Model.DetaljiRezervacije Update(int id, [FromBody] DetaljiRezervacijeUpdateRequest request)
-        //{
-        //    return _service.Update(id, request);
-        //}
+        [HttpPut("{id}")]
+        public Model.DetaljiRezervacije Update(int id, [FromBody] DetaljiRezervacijeUpdateRequest request)
+        {
+            return _service.Update(id, request);
+        }
 
     }
 }

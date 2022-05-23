@@ -2,6 +2,7 @@
 using CabinRent.Model.Requests;
 using CabinRent.Model.SearchObjects;
 using CabinRent.Services.Database;
+using CabinRent.Services.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,8 +86,9 @@ namespace CabinRent.Services
             entity.Email = request.Email;
             entity.GradId = (int)request.GradId;
             var grad = context.Grads.Find(request.GradId);
-            //entity.Grad.Naziv = grad.Naziv;
             entity.Telefon = request.Telefon;
+            entity.LozinkaSalt = HashGenerator.GenerateSalt();
+            entity.LozinkaHash = HashGenerator.GenerateHash(entity.LozinkaSalt, request.Lozinka);
             context.Klijents.Add(entity);
 
             context.SaveChanges();
