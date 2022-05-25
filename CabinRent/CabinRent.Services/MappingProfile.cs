@@ -22,6 +22,7 @@ namespace CabinRent.Services
             CreateMap<Database.Korisnik, KorisniciUpdateRequest>().ReverseMap();
             CreateMap<Database.Korisnik, KorisniciSearchRequest>().ReverseMap();
             CreateMap<Database.Grad, Model.Grad>();
+            CreateMap<Database.Grad, GradSearchRequest>().ReverseMap();
             CreateMap<Database.Drzava, Model.Drzava>();
             CreateMap<Database.DetaljiRezervacije, Model.DetaljiRezervacije>();
             CreateMap<Database.DetaljiRezervacije, DetaljiRezervacijeUpdateRequest>().ReverseMap();

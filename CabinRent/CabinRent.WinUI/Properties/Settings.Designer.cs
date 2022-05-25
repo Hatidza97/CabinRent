@@ -25,7 +25,7 @@ namespace CabinRent.WinUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:5012")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:7012/api")]
         public string APIUrl {
             get {
                 return ((string)(this["APIUrl"]));

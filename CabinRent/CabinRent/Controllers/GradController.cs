@@ -7,11 +7,22 @@ namespace CabinRent.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GradController : BaseController<Model.Grad, GradSearchRequest>
+    public class GradController : ControllerBase
     {
-        public GradController(IService<Grad, GradSearchRequest> service) : base(service)
+        private readonly IGradService _service;
+        public GradController(IGradService service)
         {
-
+            _service = service;
+        }
+        [HttpGet]
+        public ActionResult<List<Model.Grad>> Get([FromQuery] GradSearchRequest search = null)
+        {
+            return _service.Get(search);
+        }
+        [HttpGet("{id}")]
+        public Model.Grad GetById(int id)
+        {
+            return _service.GetById(id);
         }
     }
 }

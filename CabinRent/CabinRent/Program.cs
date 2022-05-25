@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IKlijentService, KlijentService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 builder.Services.AddTransient<IOcjenaService, OcjenaService>();
+builder.Services.AddTransient<IGradService, GradService>();
 builder.Services.AddTransient<IUlogaService, UlogaService>();
 builder.Services.AddTransient<IObjekatService, ObjekatService>();
 builder.Services.AddTransient<IRezervacijaService, RezervacijaService>();

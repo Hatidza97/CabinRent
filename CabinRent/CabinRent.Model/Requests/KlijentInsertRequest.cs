@@ -20,7 +20,7 @@ namespace CabinRent.Model.Requests
         public byte[] Slika { get; set; }
         public int? GradId { get; set; }
         public string Lozinka { get; set; }
-        //public string LozinkaHash { get; set; }
-        //public string LozinkaSalt { get; set; }
+        public string LozinkaHash { get; set; }
+        public string LozinkaSalt { get; set; }
     }
 }
