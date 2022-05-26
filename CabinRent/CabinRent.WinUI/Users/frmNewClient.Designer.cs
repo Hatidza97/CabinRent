@@ -58,6 +58,7 @@
             this.txtTelefon = new System.Windows.Forms.TextBox();
             this.cmbGradovi = new System.Windows.Forms.ComboBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -221,6 +222,7 @@
             this.btnDodaj.TabIndex = 11;
             this.btnDodaj.Text = "Dodaj sliku:";
             this.btnDodaj.UseVisualStyleBackColor = true;
+            this.btnDodaj.Click += new System.EventHandler(this.btnDodaj_Click);
             // 
             // btnSacuvaj
             // 
@@ -300,6 +302,10 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // frmNewClient
             // 
             this.ClientSize = new System.Drawing.Size(636, 455);
@@ -363,5 +369,6 @@
         private TextBox txtTelefon;
         private ComboBox cmbGradovi;
         private ErrorProvider errorProvider1;
+        private OpenFileDialog openFileDialog1;
     }
 }

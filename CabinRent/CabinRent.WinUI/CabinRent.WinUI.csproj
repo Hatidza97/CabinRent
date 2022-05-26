@@ -6,15 +6,16 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Flurl" Version="3.0.6" />
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CabinRent.Model\CabinRent.Model.csproj" />
-    <ProjectReference Include="..\CabinRent.Services\CabinRent.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -40,6 +40,7 @@
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.viewAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,19 +89,21 @@
             // viewAllToolStripMenuItem
             // 
             this.viewAllToolStripMenuItem.Name = "viewAllToolStripMenuItem";
-            this.viewAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.viewAllToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.viewAllToolStripMenuItem.Text = "View all";
             this.viewAllToolStripMenuItem.Click += new System.EventHandler(this.viewAllToolStripMenuItem_Click);
             // 
             // newUserToolStripMenuItem
             // 
             this.newUserToolStripMenuItem.Name = "newUserToolStripMenuItem";
-            this.newUserToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newUserToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.newUserToolStripMenuItem.Text = "New user";
             this.newUserToolStripMenuItem.Click += new System.EventHandler(this.newUserToolStripMenuItem_Click);
             // 
             // viewMenu
             // 
+            this.viewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewAllToolStripMenuItem1});
             this.viewMenu.Name = "viewMenu";
             this.viewMenu.Size = new System.Drawing.Size(90, 24);
             this.viewMenu.Text = "&Properties";
@@ -123,6 +126,13 @@
             this.helpMenu.Size = new System.Drawing.Size(74, 24);
             this.helpMenu.Text = "&Reports";
             this.helpMenu.Click += new System.EventHandler(this.helpMenu_Click);
+            // 
+            // viewAllToolStripMenuItem1
+            // 
+            this.viewAllToolStripMenuItem1.Name = "viewAllToolStripMenuItem1";
+            this.viewAllToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.viewAllToolStripMenuItem1.Text = "View all";
+            this.viewAllToolStripMenuItem1.Click += new System.EventHandler(this.viewAllToolStripMenuItem1_Click);
             // 
             // MainPage
             // 
@@ -156,6 +166,7 @@
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem viewAllToolStripMenuItem;
         private ToolStripMenuItem newUserToolStripMenuItem;
+        private ToolStripMenuItem viewAllToolStripMenuItem1;
     }
 }
 

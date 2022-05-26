@@ -90,6 +90,22 @@ namespace CabinRent.WinUI
 
         }
 
+        public async Task<T> Update<T>(object id, object request)
+        {
+            try
+            {
+                var url = $"{_endpoint}/{_resource}/{id}";
+
+                return await url
+                    .WithBasicAuth(Username, Password)
+                    .PutJsonAsync(request).ReceiveJson<T>();
+            }
+            catch (FlurlHttpException ex)
+            {
+                return await HandleException<T>(ex);
+            }
+
+        }
         public async Task<T> Put<T>(object id, object request)
         {
             var result = await $"{_endpoint}/{_resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();

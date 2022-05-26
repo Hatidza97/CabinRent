@@ -169,5 +169,22 @@ namespace CabinRent.WinUI.Users
                 }
             }
         }
+
+        private void btnDodaj_Click(object sender, EventArgs e)
+        {
+            var result = openFileDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                var fileName = openFileDialog1.FileName;
+                var file = File.ReadAllBytes(fileName);
+                request.Slika = file;
+                txtSlika.Text = fileName;
+
+                Image img = Image.FromFile(fileName);
+                pbUserImage.Image = img;
+                pbUserImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
     }
 }

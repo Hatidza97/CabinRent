@@ -41,6 +41,7 @@
             this.txtBrTelefona = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.btnZatvori = new System.Windows.Forms.Button();
+            this.btnUredi = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,6 +101,7 @@
             // 
             // pbUserImage
             // 
+            this.pbUserImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbUserImage.Location = new System.Drawing.Point(21, 237);
             this.pbUserImage.Name = "pbUserImage";
             this.pbUserImage.Size = new System.Drawing.Size(148, 132);
@@ -143,7 +145,7 @@
             // 
             // btnZatvori
             // 
-            this.btnZatvori.Location = new System.Drawing.Point(357, 382);
+            this.btnZatvori.Location = new System.Drawing.Point(134, 395);
             this.btnZatvori.Name = "btnZatvori";
             this.btnZatvori.Size = new System.Drawing.Size(94, 29);
             this.btnZatvori.TabIndex = 12;
@@ -151,11 +153,22 @@
             this.btnZatvori.UseVisualStyleBackColor = true;
             this.btnZatvori.Click += new System.EventHandler(this.btnZatvori_Click);
             // 
+            // btnUredi
+            // 
+            this.btnUredi.Location = new System.Drawing.Point(256, 395);
+            this.btnUredi.Name = "btnUredi";
+            this.btnUredi.Size = new System.Drawing.Size(94, 29);
+            this.btnUredi.TabIndex = 13;
+            this.btnUredi.Text = "Uredi";
+            this.btnUredi.UseVisualStyleBackColor = true;
+            this.btnUredi.Click += new System.EventHandler(this.btnUredi_Click);
+            // 
             // frmUserDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnUredi);
             this.Controls.Add(this.btnZatvori);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.txtBrTelefona);
@@ -193,5 +206,6 @@
         private TextBox txtBrTelefona;
         private TextBox txtEmail;
         private Button btnZatvori;
+        private Button btnUredi;
     }
 }

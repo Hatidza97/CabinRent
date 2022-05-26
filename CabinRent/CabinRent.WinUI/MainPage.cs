@@ -1,4 +1,5 @@
-﻿using CabinRent.WinUI.Users;
+﻿using CabinRent.WinUI.Objects;
+using CabinRent.WinUI.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -120,6 +121,13 @@ namespace CabinRent.WinUI
         private void newUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form forma = new frmNewClient();
+            forma.MdiParent = this;
+            forma.Show();
+        }
+
+        private void viewAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Form forma = new frmObjects();
             forma.MdiParent = this;
             forma.Show();
         }

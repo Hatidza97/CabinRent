@@ -42,5 +42,12 @@ namespace CabinRent.WinUI.Users
         {
             this.Close();
         }
+
+        private void btnUredi_Click(object sender, EventArgs e)
+        {
+            frmEditClient forma = new frmEditClient(_v);
+            if (forma.ShowDialog() == DialogResult.OK)
+                forma.Show();
+        }
     }
 }
