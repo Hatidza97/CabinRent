@@ -186,5 +186,10 @@ namespace CabinRent.WinUI.Users
                 pbUserImage.SizeMode = PictureBoxSizeMode.StretchImage;
             }
         }
+
+        private void frmNewClient_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

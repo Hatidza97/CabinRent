@@ -59,7 +59,8 @@ namespace CabinRent.WinUI
 
                 return await url
                     .WithBasicAuth(Username, Password)
-                    .PostJsonAsync(request).ReceiveJson<T>();
+                    .PostJsonAsync(request)
+                    .ReceiveJson<T>();
             }
             catch (FlurlHttpException ex)
             {

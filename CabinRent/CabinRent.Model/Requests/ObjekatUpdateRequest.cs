@@ -20,5 +20,8 @@ namespace CabinRent.Model.Requests
         public string Opis { get; set; }
         [Required]
         public double Cijena { get; set; }
+        public int GradId { get; set; }
+        public int TipObjektaId { get; set; }
+
     }
 }

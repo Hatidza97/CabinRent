@@ -83,8 +83,8 @@ namespace CabinRent.WinUI.Objects
         private void dgvObjects_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var objekat = dgvObjects.SelectedRows[0].Cells[0].Value;
-            var rez = objekat.ToString();
-            Form forma = new frmObjectDetail(int.Parse(rez));
+            var rez = objekat;
+            Form forma = new frmObjectDetail(Convert.ToInt32(rez));
             if (forma.ShowDialog() == DialogResult.OK)
                 forma.Show();
         }

@@ -19,6 +19,7 @@ builder.Services.AddTransient<IObjekatService, ObjekatService>();
 builder.Services.AddTransient<IRezervacijaService, RezervacijaService>();
 builder.Services.AddTransient<ITipObjektumService, TipObjektumService>();
 builder.Services.AddTransient<IDetaljiRezervacijeService, DetaljiRezervacijeService>();
+builder.Services.AddTransient<ITipObjektaSLlikeService, TipObjektaSllikeService>();
 builder.Services.AddAutoMapper(typeof(IKlijentService)); 
 builder.Services.AddDbContext<eRentContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

@@ -47,6 +47,12 @@
             this.lblGrad = new System.Windows.Forms.Label();
             this.cmbGrad = new System.Windows.Forms.ComboBox();
             this.btnSacuvaj = new System.Windows.Forms.Button();
+            this.btnUredi = new System.Windows.Forms.Button();
+            this.pbSlike = new System.Windows.Forms.PictureBox();
+            this.btnNazad = new System.Windows.Forms.Button();
+            this.btnNaprijed = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSlike)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNaziv
@@ -200,18 +206,65 @@
             // 
             // btnSacuvaj
             // 
-            this.btnSacuvaj.Location = new System.Drawing.Point(616, 392);
+            this.btnSacuvaj.Location = new System.Drawing.Point(157, 406);
             this.btnSacuvaj.Name = "btnSacuvaj";
             this.btnSacuvaj.Size = new System.Drawing.Size(94, 29);
             this.btnSacuvaj.TabIndex = 18;
-            this.btnSacuvaj.Text = "Sacuvaj";
+            this.btnSacuvaj.Text = "Nazad";
             this.btnSacuvaj.UseVisualStyleBackColor = true;
             // 
-            // frmEditObject
+            // btnUredi
+            // 
+            this.btnUredi.Location = new System.Drawing.Point(298, 406);
+            this.btnUredi.Name = "btnUredi";
+            this.btnUredi.Size = new System.Drawing.Size(102, 29);
+            this.btnUredi.TabIndex = 19;
+            this.btnUredi.Text = "Uredi";
+            this.btnUredi.UseVisualStyleBackColor = true;
+            this.btnUredi.Click += new System.EventHandler(this.btnUredi_Click);
+            // 
+            // pbSlike
+            // 
+            this.pbSlike.Location = new System.Drawing.Point(525, 37);
+            this.pbSlike.Name = "pbSlike";
+            this.pbSlike.Size = new System.Drawing.Size(149, 130);
+            this.pbSlike.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbSlike.TabIndex = 20;
+            this.pbSlike.TabStop = false;
+            // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(437, 93);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(77, 29);
+            this.btnNazad.TabIndex = 21;
+            this.btnNazad.Text = "<";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
+            // btnNaprijed
+            // 
+            this.btnNaprijed.Location = new System.Drawing.Point(681, 93);
+            this.btnNaprijed.Name = "btnNaprijed";
+            this.btnNaprijed.Size = new System.Drawing.Size(77, 29);
+            this.btnNaprijed.TabIndex = 22;
+            this.btnNaprijed.Text = ">";
+            this.btnNaprijed.UseVisualStyleBackColor = true;
+            this.btnNaprijed.Click += new System.EventHandler(this.btnNaprijed_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // frmObjectDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(770, 447);
+            this.Controls.Add(this.btnNaprijed);
+            this.Controls.Add(this.btnNazad);
+            this.Controls.Add(this.pbSlike);
+            this.Controls.Add(this.btnUredi);
             this.Controls.Add(this.btnSacuvaj);
             this.Controls.Add(this.cmbGrad);
             this.Controls.Add(this.lblGrad);
@@ -231,9 +284,10 @@
             this.Controls.Add(this.lblDjeca);
             this.Controls.Add(this.lblPovrsina);
             this.Controls.Add(this.lblNaziv);
-            this.Name = "frmEditObject";
+            this.Name = "frmObjectDetail";
             this.Text = "frmEditObject";
             this.Load += new System.EventHandler(this.frmEditObject_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbSlike)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +314,10 @@
         private Label lblGrad;
         private ComboBox cmbGrad;
         private Button btnSacuvaj;
+        private Button btnUredi;
+        private PictureBox pbSlike;
+        private Button btnNazad;
+        private Button btnNaprijed;
+        private OpenFileDialog openFileDialog1;
     }
 }

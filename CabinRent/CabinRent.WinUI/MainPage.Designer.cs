@@ -36,11 +36,12 @@
             this.viewAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.viewAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,10 +104,18 @@
             // viewMenu
             // 
             this.viewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewAllToolStripMenuItem1});
+            this.viewAllToolStripMenuItem1,
+            this.addNewToolStripMenuItem});
             this.viewMenu.Name = "viewMenu";
             this.viewMenu.Size = new System.Drawing.Size(90, 24);
             this.viewMenu.Text = "&Properties";
+            // 
+            // viewAllToolStripMenuItem1
+            // 
+            this.viewAllToolStripMenuItem1.Name = "viewAllToolStripMenuItem1";
+            this.viewAllToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.viewAllToolStripMenuItem1.Text = "View all";
+            this.viewAllToolStripMenuItem1.Click += new System.EventHandler(this.viewAllToolStripMenuItem1_Click);
             // 
             // toolsMenu
             // 
@@ -127,12 +136,12 @@
             this.helpMenu.Text = "&Reports";
             this.helpMenu.Click += new System.EventHandler(this.helpMenu_Click);
             // 
-            // viewAllToolStripMenuItem1
+            // addNewToolStripMenuItem
             // 
-            this.viewAllToolStripMenuItem1.Name = "viewAllToolStripMenuItem1";
-            this.viewAllToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
-            this.viewAllToolStripMenuItem1.Text = "View all";
-            this.viewAllToolStripMenuItem1.Click += new System.EventHandler(this.viewAllToolStripMenuItem1_Click);
+            this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addNewToolStripMenuItem.Text = "Add new";
+            this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewToolStripMenuItem_Click);
             // 
             // MainPage
             // 
@@ -167,6 +176,7 @@
         private ToolStripMenuItem viewAllToolStripMenuItem;
         private ToolStripMenuItem newUserToolStripMenuItem;
         private ToolStripMenuItem viewAllToolStripMenuItem1;
+        private ToolStripMenuItem addNewToolStripMenuItem;
     }
 }
 

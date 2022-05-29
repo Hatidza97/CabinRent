@@ -331,6 +331,7 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Name = "frmNewClient";
+            this.Load += new System.EventHandler(this.frmNewClient_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.pbUserImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);

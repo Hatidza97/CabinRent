@@ -131,5 +131,12 @@ namespace CabinRent.WinUI
             forma.MdiParent = this;
             forma.Show();
         }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form forma = new frmNewObject();
+            forma.MdiParent = this;
+            forma.Show();
+        }
     }
 }
