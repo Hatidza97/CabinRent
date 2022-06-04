@@ -1,4 +1,6 @@
-﻿using CabinRent.WinUI.Objects;
+﻿using CabinRent.WinUI.Comments;
+using CabinRent.WinUI.Objects;
+using CabinRent.WinUI.Rented;
 using CabinRent.WinUI.Users;
 using System;
 using System.Collections.Generic;
@@ -136,6 +138,20 @@ namespace CabinRent.WinUI
         {
             Form forma = new frmNewObject();
             forma.MdiParent = this;
+            forma.Show();
+        }
+
+        private void viewAllToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Form forma = new frmRented();
+            forma.MdiParent = this;
+            forma.Show();
+        }
+
+        private void viewAllToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            Form forma = new frmComments();
+            forma.MdiParent= this;
             forma.Show();
         }
     }

@@ -80,16 +80,23 @@ namespace CabinRent.WinUI.Objects
                     ObjekatId = _v
                 };
                 var slike = await _servisSlike.Get<List<Model.TipObjektaSllike>>(request);
-                foreach (var item in slike)
+                if (slike.Count() >0)
                 {
-                    if(item.ObjekatId==_v)
+                    foreach (var item in slike)
                     {
-                        zaListanje.Add(item.ImageData);
+                        if (item.ObjekatId == _v)
+                        {
+                            zaListanje.Add(item.ImageData);
+                        }
+                    }
+                    if (zaListanje.Count() > 0)
+                    {
+                        pbSlike.Image = ImageHelper.FromByteToImage(zaListanje[0]);
                     }
                 }
-                if (zaListanje.Count() > 0)
+                else
                 {
-                    pbSlike.Image = ImageHelper.FromByteToImage(zaListanje[0]);
+                    MessageBox.Show("Nema slika za prikazati.");
                 }
             }
         }
@@ -142,6 +149,11 @@ namespace CabinRent.WinUI.Objects
                     btnNaprijed.Text = brojac.ToString();
                 }
             }
+        }
+
+        private void btnSacuvaj_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

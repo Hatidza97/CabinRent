@@ -212,6 +212,7 @@
             this.btnSacuvaj.TabIndex = 18;
             this.btnSacuvaj.Text = "Nazad";
             this.btnSacuvaj.UseVisualStyleBackColor = true;
+            this.btnSacuvaj.Click += new System.EventHandler(this.btnSacuvaj_Click);
             // 
             // btnUredi
             // 

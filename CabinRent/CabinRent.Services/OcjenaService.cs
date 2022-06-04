@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CabinRent.Services.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,12 @@ namespace CabinRent.Services
         }
         public List<Model.Ocjena> Get()
         {
-            return _context.Ocjenas.ToList().Select(x => _mapper.Map<Model.Ocjena>(x)).ToList();
+            var query = _context.Ocjenas
+                  .Include(x => x.Objekat)
+                  .Include(x => x.Klijent)
+                  .AsQueryable();
+            var list = query.ToList();
+            return _mapper.Map<List<Model.Ocjena>>(list);
         }
         public Model.Ocjena GetById(int id)
         {

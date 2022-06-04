@@ -60,17 +60,20 @@ namespace CabinRent.WinUI.Objects
 
             foreach (var item in podaci)
             {
-                var forma = new frmObjectClass
+                if (item.Rezervisan == true)
                 {
-                    ObjekatId = item.ObjekatId,
-                    BrojMjestaDjeca = item.BrojMjestaDjeca,
-                    BrojMjestaOdrasli = item.BrojMjestaOdrasli,
-                    Naziv = item.Naziv,
-                    Povrsina = item.Povrsina,
-                    Opis = item.Opis,
-                    Rezervisan = item.Rezervisan
-                };
-                lista.Add(forma);
+                    var forma = new frmObjectClass
+                    {
+                        ObjekatId = item.ObjekatId,
+                        BrojMjestaDjeca = item.BrojMjestaDjeca,
+                        BrojMjestaOdrasli = item.BrojMjestaOdrasli,
+                        Naziv = item.Naziv,
+                        Povrsina = item.Povrsina,
+                        Opis = item.Opis,
+                        Rezervisan = item.Rezervisan
+                    };
+                    lista.Add(forma);
+                }
             }
             dgvObjects.AutoGenerateColumns = false;
             dgvObjects.DataSource = lista;

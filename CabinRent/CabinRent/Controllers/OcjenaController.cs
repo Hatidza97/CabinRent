@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CabinRent.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class OcjenaController : ControllerBase
     {
         private readonly IOcjenaService _service;
