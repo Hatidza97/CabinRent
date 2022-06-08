@@ -19,7 +19,8 @@ namespace CabinRent.Services
         List<Model.Korisnik> Get(KorisniciSearchRequest request);
         List<Model.Korisnik> GetRegistracija(KorisniciSearchRequest request);
         Model.Korisnik Update(int id, KorisniciUpdateRequest request);
-        Task<Model.Korisnik> Login(KorisniciLoginRequest request);
+        //Task<Model.Korisnik> Login(KorisniciLoginRequest request);
+        Model.Korisnik Login(string username, string password);
         ActionResult<Model.Korisnik> SignUp(KorisniciUpdateRequest request);
     }
 }

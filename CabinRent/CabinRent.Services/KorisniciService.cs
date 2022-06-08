@@ -61,12 +61,29 @@ namespace CabinRent.Services
         }
         public static string GenerateSalt()
         {
-            var buff = new byte[16];
-            (new RNGCryptoServiceProvider()).GetBytes(buff);
-            return Convert.ToBase64String(buff);
+            //var buff = new byte[16];
+            //(new RNGCryptoServiceProvider()).GetBytes(buff);
+            //return Convert.ToBase64String(buff);
+
+            RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
+            var byteArray = new byte[16];
+            provider.GetBytes(byteArray);
+
+
+            return Convert.ToBase64String(byteArray);
         }
         public static string GenerateHash(string salt, string password)
         {
+            //byte[] src = Convert.FromBase64String(salt);
+            //byte[] bytes = Encoding.Unicode.GetBytes(password);
+            //byte[] dst = new byte[src.Length + bytes.Length];
+
+            //System.Buffer.BlockCopy(src, 0, dst, 0, src.Length);
+            //System.Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
+
+            //HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
+            //byte[] inArray = algorithm.ComputeHash(dst);
+            //return Convert.ToBase64String(inArray);
             byte[] src = Convert.FromBase64String(salt);
             byte[] bytes = Encoding.Unicode.GetBytes(password);
             byte[] dst = new byte[src.Length + bytes.Length];
@@ -137,21 +154,23 @@ namespace CabinRent.Services
         }
 
 
-        public async Task<Model.Korisnik> Login(KorisniciLoginRequest request)
+        public Model.Korisnik Login(string username,string password)
         {
-            var korisnik = context.Korisniks.Include(x => x.KorisnikUloges).FirstOrDefault(x => x.KorisnickoIme == request.Username);
-
-            if (korisnik == null)
+            var entity = context.Korisniks.Include("KorisnikUloges.Uloga")
+                .FirstOrDefault(x => x.KorisnickoIme == username);
+            if (entity == null)
             {
-                throw new UserException("Pogrešan username ili password");
+                return null;
             }
-            var hash = GenerateHash(korisnik.LozinkaSalt, request.Password);
-            if (hash != korisnik.LozinkaHash)
-            {
-                throw new UserException("Pogrešan username ili password");
 
+            var hash = GenerateHash(entity.LozinkaSalt, password);
+
+            if (hash != entity.LozinkaHash)
+            {
+                return null;
             }
-            return _mapper.Map<Model.Korisnik>(korisnik);
+
+            return _mapper.Map<Model.Korisnik>(entity);
 
         }
         public ActionResult<Model.Korisnik> SignUp(KorisniciUpdateRequest request)

@@ -48,6 +48,7 @@ namespace CabinRent.Services
             {
                 query = query.Where(x => x.Naziv.StartsWith(request.Naziv));
             }
+            
             //if (!string.IsNullOrWhiteSpace(request.Cijena.ToString()))
             //{
             //    query = query.Where(x => x.Povrsina.StartsWith(request.Cijena.ToString()));

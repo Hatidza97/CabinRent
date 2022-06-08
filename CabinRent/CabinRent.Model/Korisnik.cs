@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CabinRent.Model
@@ -14,7 +15,9 @@ namespace CabinRent.Model
         public string KorisnickoIme { get; set; }
         public byte[] Slika { get; set; }
 
-        //public virtual ICollection<KorisnikUloge> KorisnikUloges { get; set; }
+        public virtual ICollection<KorisnikUloge> KorisnikUloges { get; set; }
+        public string RoleNames => string.Join(", ", KorisnikUloges?.Select(x => x.Uloga?.Naziv)?.ToList());
+
         //public virtual ICollection<Objekat> Objekats { get; set; }
     }
 }

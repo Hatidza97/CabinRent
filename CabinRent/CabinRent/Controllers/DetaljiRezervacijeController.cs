@@ -1,9 +1,13 @@
 ﻿using CabinRent.Model.Requests;
 using CabinRent.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
     public class DetaljiRezervacijeController : ControllerBase
     {
         private readonly IDetaljiRezervacijeService _service;

@@ -19,9 +19,14 @@ namespace CabinRent.WinUI.Objects
         protected APIService _servisTip = new APIService("TipObjektum");
         protected APIService _servisObjekat = new APIService("Objekat");
 
-        public frmNewObject()
+        //public frmNewObject()
+        //{
+        //}
+
+        public frmNewObject(int id)
         {
             InitializeComponent();
+            this.id = id;
         }
 
         private void frmNewObject_Load(object sender, EventArgs e)
@@ -114,6 +119,8 @@ namespace CabinRent.WinUI.Objects
             }
         }
         ObjekatInsertRequest request = new ObjekatInsertRequest();
+        private int id;
+
         private async void btnSacuvaj_Click(object sender, EventArgs e)
         {
             if (this.ValidateChildren())
@@ -127,7 +134,7 @@ namespace CabinRent.WinUI.Objects
                 var gradId = cmbGrad.SelectedValue;
                 request.Naziv = txtNaziv.Text;
                 request.Povrsina=txtPovrsina.Text;
-                request.KorisnikId = 1;//promijeniti poslije
+                request.KorisnikId = id;
                 if (int.TryParse(gradId.ToString(), out int GradId))
                 {
                     request.GradId = GradId;

@@ -1,6 +1,6 @@
 ﻿namespace CabinRent.WinUI
 {
-    partial class MainPage
+    partial class frmMainPage
     {
         /// <summary>
         /// Required designer variable.

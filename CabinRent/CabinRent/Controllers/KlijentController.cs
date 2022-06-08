@@ -1,13 +1,14 @@
 ﻿using CabinRent.Model.Requests;
 using CabinRent.Model.SearchObjects;
 using CabinRent.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize]
     public class KlijentController : ControllerBase
     {
         private readonly IKlijentService _service;
@@ -27,6 +28,7 @@ namespace CabinRent.Controllers
             return _service.Delete(id);
         }
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<List<Model.Klijent>> Get([FromQuery] KlijentSearchRequest search = null)
         {
             return _service.Get(search);
@@ -37,6 +39,7 @@ namespace CabinRent.Controllers
             return _service.Update(id, request);
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult<Model.Klijent> Insert(KlijentInsertRequest request)
         {
             return _service.Insert(request);

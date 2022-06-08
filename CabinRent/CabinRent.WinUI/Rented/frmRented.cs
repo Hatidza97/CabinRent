@@ -61,24 +61,28 @@ namespace CabinRent.WinUI.Rented
         {
             var pretraga = new ObjekatSearchRequest
             {
-                Naziv = txtPretraga.Text
+                Naziv = txtPretraga.Text,
+                Rezervisan=true
             };
             var podaci = await _apiService.Get<List<Model.Objekat>>(pretraga);
             var lista = new List<frmObjectClass>();
 
             foreach (var item in podaci)
             {
-                var forma = new frmObjectClass
+                if (item.Rezervisan == true)
                 {
-                    ObjekatId = item.ObjekatId,
-                    BrojMjestaDjeca = item.BrojMjestaDjeca,
-                    BrojMjestaOdrasli = item.BrojMjestaOdrasli,
-                    Naziv = item.Naziv,
-                    Povrsina = item.Povrsina,
-                    Opis = item.Opis,
-                    Rezervisan = item.Rezervisan
-                };
-                lista.Add(forma);
+                    var forma = new frmObjectClass
+                    {
+                        ObjekatId = item.ObjekatId,
+                        BrojMjestaDjeca = item.BrojMjestaDjeca,
+                        BrojMjestaOdrasli = item.BrojMjestaOdrasli,
+                        Naziv = item.Naziv,
+                        Povrsina = item.Povrsina,
+                        Opis = item.Opis,
+                        Rezervisan = item.Rezervisan
+                    };
+                    lista.Add(forma);
+                }
             }
             dgvRented.AutoGenerateColumns = false;
             dgvRented.DataSource = lista;

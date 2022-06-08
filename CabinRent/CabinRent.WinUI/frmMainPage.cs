@@ -14,13 +14,20 @@ using System.Windows.Forms;
 
 namespace CabinRent.WinUI
 {
-    public partial class MainPage : Form
+    public partial class frmMainPage : Form
     {
         private int childFormNumber = 0;
+        private int id;
 
-        public MainPage()
+        //public frmMainPage()
+        //{
+        //}
+
+        public frmMainPage(int id)
         {
+            this.id = id;
             InitializeComponent();
+
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -136,7 +143,7 @@ namespace CabinRent.WinUI
 
         private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form forma = new frmNewObject();
+            Form forma = new frmNewObject(id);
             forma.MdiParent = this;
             forma.Show();
         }

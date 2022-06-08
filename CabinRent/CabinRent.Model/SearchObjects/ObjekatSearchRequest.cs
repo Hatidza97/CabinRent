@@ -19,6 +19,6 @@ namespace CabinRent.Model.SearchObjects
         //public int GradId { get; set; }
         //public int KorisnikId { get; set; }
         public Model.TipObjektum TipObjekta { get; set; }
-
+        public bool Rezervisan { get; set; }
     }
 }

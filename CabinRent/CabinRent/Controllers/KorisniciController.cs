@@ -2,13 +2,14 @@
 using CabinRent.Model.Requests;
 using CabinRent.Model.SearchObjects;
 using CabinRent.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize]
     public class KorisniciController : ControllerBase
     {
         private readonly IKorisniciService _service;
@@ -37,17 +38,20 @@ namespace CabinRent.Controllers
         {
             return _service.Get(search);
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult<Model.Korisnik> Insert(KorisniciInsertRequest request)
         {
             return _service.Insert(request);
         }
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult<Model.Korisnik> Update(int id, [FromBody] KorisniciUpdateRequest request)
         {
             return _service.Update(id, request);
         }
         [HttpPost("signUp")]
+        [AllowAnonymous]
         public ActionResult<Model.Korisnik> SignUp(KorisniciUpdateRequest request)
         {
             return _service.SignUp(request);

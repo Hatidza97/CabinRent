@@ -11,6 +11,6 @@ namespace CabinRent.Model
         public int UlogaId { get; set; }
 
     //    public virtual Korisnik Korisnik { get; set; } = null!;
-    //    public virtual Uloga Uloga { get; set; } = null!;
+       public virtual Uloga Uloga { get; set; } 
     }
 }

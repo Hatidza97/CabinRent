@@ -1,10 +1,12 @@
 ﻿using CabinRent.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class OcjenaController : ControllerBase
     {
         private readonly IOcjenaService _service;

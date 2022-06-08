@@ -1,12 +1,14 @@
 ﻿using CabinRent.Model;
 using CabinRent.Model.SearchObjects;
 using CabinRent.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CabinRent.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class GradController : ControllerBase
     {
         private readonly IGradService _service;
