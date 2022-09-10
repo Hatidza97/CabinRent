@@ -7,6 +7,6 @@ class ObjectPicturesProvider extends BaseProvider<Object> {
 
   @override
   ObjectPictures fromJson(data) {
-    return ObjectPictures();
+    return ObjectPictures.fromJson(data);
   }
 } 

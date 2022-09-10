@@ -20,7 +20,8 @@ class ObjectListScreen extends StatefulWidget {
 
 class _ObjectListScreenState extends State<ObjectListScreen> {
   ObjectProvider? _objectProvider=null;
-  List<Object> data=[];
+  List<Objekat> data=[];
+  List<ObjectPictures> dataObjectPictures=[];
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +32,7 @@ class _ObjectListScreenState extends State<ObjectListScreen> {
   }
   
   Future loadData() async {
-    var tempData= await _objectProvider?.get(null);
+    var tempData= await _objectProvider?.get();
     setState(() {
       data=tempData!;
     });
@@ -40,6 +41,14 @@ class _ObjectListScreenState extends State<ObjectListScreen> {
   Widget build(BuildContext context) {
     print("Called build $data");
     return Scaffold(
+      appBar: AppBar(),
+      drawer: Container(
+        color: Colors.black,
+        child: Column(children: [
+          const SizedBox(height: 100),
+          TextButton.icon(onPressed: (){}, icon: Icon(Icons.person), label: Text('Edit profile'))
+        ],),
+      ),
       body: SafeArea(
         child:SingleChildScrollView(
         child:Container(
@@ -47,18 +56,19 @@ class _ObjectListScreenState extends State<ObjectListScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeader(),
+            
              Container(
               height: 200,
               child:  GridView(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
                 childAspectRatio: 4/3,
-                crossAxisSpacing: 20,
+                crossAxisSpacing: 30,
                 mainAxisSpacing: 30
               ),
               scrollDirection: Axis.horizontal,
               children: _buildObjectCardList(),
               ),
-             )
+             ) 
             ],
           ),
         ) ) ,)
@@ -75,28 +85,90 @@ class _ObjectListScreenState extends State<ObjectListScreen> {
     if(data.length==0){
       return [Text("Loading...")];
     }
-    List<Widget> list= data.map((x)=>Container(
-      height: 200,
-      width: 200,
-      child: Column(
-       
-        children: [
-          Container(
-          child: Text(x.naziv ??""),
-          ),
-          Container(
-            child: Text(x.povrsina??""),
-          ),
-          Container(
-            child: Text(x.opis??""),
-          ),
-          Container(
-            child: Text(x.brojMjestaDjeca.toString()),
-          ),
-          Container(
-            child: Text(x.brojMjestaOdrasli.toString()),
-          )
-        ],
+    List<Widget> list= data.map((x)=>GestureDetector(onTap: (){
+      // Navigator.pushNamed(context, ObjectDetailsScreen.routeName);
+      //_buildObjectDetailsCardList();
+    },
+      child: Container(
+        height: 200,
+        width: 200,
+        child: Column(
+         
+          children: [
+            Container(
+            child: Text(x.naziv ??""),
+            ),
+            Container(
+              child: Text(x.povrsina??""),
+            ),
+            Container(
+              child: Text(x.opis??""),
+            ),
+            Container(
+              child: Text(x.brojMjestaDjeca.toString()),
+            ),
+            Container(
+              child: Text(x.brojMjestaOdrasli.toString()),
+            ),
+            Container(
+              child: TextButton(  
+                style: TextButton.styleFrom(
+                primary: Colors.blue,
+                 onSurface: Colors.red,
+                ),
+                onPressed: () {
+                   Navigator.pushNamed(context, ObjectDetailsScreen.routeName, arguments:
+                    {
+                      "id":x.objekatId,
+                      "naziv":x.naziv,
+                      "opis":x.opis,
+                      "tipobjekta":x.tipObjekta,
+                      "brojmjestadjeca":x.brojMjestaDjeca,
+                      "brojmjestaOdrasli":x.brojMjestaOdrasli
+                      });
+                 },
+                child: Text('Detalji objekta'),),
+            )
+          ],
+        ),
+      ),
+    )).cast<Widget>().toList();
+
+    return list;
+  }
+  List<Widget> _buildObjectDetailsCardList(){
+    if(dataObjectPictures.length==0){
+      return [Text("Loading...")];
+    }
+    List<Widget> list= dataObjectPictures.map((x)=>GestureDetector(onTap: (){
+      Navigator.pushNamed(context, "${ObjectDetailsScreen.routeName}/${x.objekatId}");
+    },
+      child: Container(
+        height: 200,
+        width: 200,
+        child: Column(
+         
+          children: [
+            // Container(
+            // child: Text(x.naziv ??""),
+            // ),
+            // Container(
+            //   child: Text(x.povrsina??""),
+            // ),
+            // Container(
+            //   child: Text(x.opis??""),
+            // ),
+            // Container(
+            //   child: Text(x.brojMjestaDjeca.toString()),
+            // ),
+            // Container(
+            //   child: Text(x.brojMjestaOdrasli.toString()),
+            // ),
+            Container(
+              child: Text('TEST'),
+            )
+          ],
+        ),
       ),
     )).cast<Widget>().toList();
 

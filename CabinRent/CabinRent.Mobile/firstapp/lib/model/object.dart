@@ -7,7 +7,7 @@ import 'tipobjekta.dart';
 part 'object.g.dart';
 
 @JsonSerializable()
-class Object {
+class Objekat {
   int? objekatId;
   String? naziv;
   String? povrsina;
@@ -21,8 +21,8 @@ class Object {
   Grad? grad;
   int? tipObjektaId;
   TipObjekta? tipObjekta;
-  Object(){}
-  factory Object.fromJson(Map<String,dynamic>json)=>_$ObjectFromJson(json);
-  Map<String,dynamic> toJson()=>_$ObjectToJson(this);
+  Objekat(){}
+  factory Objekat.fromJson(Map<String,dynamic>json)=>_$ObjekatFromJson(json);
+  Map<String,dynamic> toJson()=>_$ObjekatToJson(this);
 
 }

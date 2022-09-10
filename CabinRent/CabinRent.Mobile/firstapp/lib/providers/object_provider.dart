@@ -1,18 +1,12 @@
-import 'dart:convert';
 import 'dart:core';
-import 'package:flutter/foundation.dart';
-import 'dart:async';
-import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 import 'package:firstapp/providers/base_provider.dart';
-import 'dart:io';
 import 'package:firstapp/model/object.dart';
-class ObjectProvider extends BaseProvider<Object> {
+class ObjectProvider extends BaseProvider<Objekat> {
  ObjectProvider() : super("Objekat");
 
   @override
-  Object fromJson(data) {
-    return Object.fromJson(data);
+  Objekat fromJson(data) {
+    return Objekat.fromJson(data);
   }
 } 
 /*class ObjectProvider with ChangeNotifier{

@@ -6,7 +6,7 @@ part of 'object.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Object _$ObjectFromJson(Map<String, dynamic> json) => Object()
+Objekat _$ObjekatFromJson(Map<String, dynamic> json) => Objekat()
   ..objekatId = json['objekatId'] as int?
   ..naziv = json['naziv'] as String?
   ..povrsina = json['povrsina'] as String?
@@ -23,7 +23,7 @@ Object _$ObjectFromJson(Map<String, dynamic> json) => Object()
   ..korisnik=json['korisnik']==null?null:User.fromJson(json['korisnik'] as Map<String,dynamic>);
           
 
-Map<String, dynamic> _$ObjectToJson(Object instance) => <String, dynamic>{
+Map<String, dynamic> _$ObjekatToJson(Objekat instance) => <String, dynamic>{
       'objekatId': instance.objekatId,
       'naziv': instance.naziv,
       'povrsina': instance.povrsina,

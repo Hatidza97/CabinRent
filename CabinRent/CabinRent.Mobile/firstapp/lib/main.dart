@@ -1,7 +1,9 @@
 import 'package:firstapp/providers/object_provider.dart';
 import 'package:firstapp/providers/objectpictures_provider.dart';
 import 'package:firstapp/providers/user_provider.dart';
+import 'package:firstapp/screens/objects/objectpictures_screen.dart';
 import 'package:firstapp/screens/objects/object_screen.dart';
+import 'package:firstapp/screens/objects/login_screen.dart';
 import 'package:firstapp/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +47,22 @@ void main() => runApp(MultiProvider(
 )); 
 
 class HomePage extends StatelessWidget{
+   const HomePage({Key? key}) : super(key: key);
+   // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Login(),
+      routes: {
+        '/login':(context)=>Login(),
+        '/objects':(context)=>ObjectListScreen(),
+        '/object_details':(context)=>ObjectDetailsScreen()
+      },
+    );
+  }
+}
+
+class HomePage1 extends StatelessWidget{
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   late UserProvider _userProvider;
@@ -257,4 +275,43 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-*/ 
+
+
+// // */ 
+// import 'package:dentofficemobile/pages/OcijeniStomatologa.dart';
+// import 'package:dentofficemobile/pages/RezervacijaTermina.dart';
+//import 'package:flutter/material.dart';
+//import 'package:firstapp/screens/objects/login_screen.dart';
+// import 'package:dentofficemobile/pages/Login.dart';
+// import 'package:dentofficemobile/pages/Loading.dart';
+// import 'package:dentofficemobile/pages/Home.dart';
+// import 'package:dentofficemobile/pages/Termini.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
+
+// import 'pages/Cjenovnik.dart';
+
+// void main() {
+//   //Stripe.publishableKey = "pk_test_51LGmN7GBwfqh1nHltOq3tkMGzDUTEMlwHz4Onw6JTPwFMF47S60Ln0iBzJM766yIzsHN52M6b7OaLZtMwicYKnr900B24bt65p";
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home:Login(),
+//       routes: {
+//          '/login':(context)=>Login(),
+//         // '/loading':(context)=>Loading(),
+//         // '/home':(context)=>Home(),
+//         // '/termini':(context)=>Termini(),
+//         // '/cjenovnik':(context)=>Usluge(),
+//         // '/rezervacija':(context)=>RezervacijaTermina(),
+//         // '/ocjene':(context)=>MojeOcjene()
+//       },
+//     );
+//   }
+// }
