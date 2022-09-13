@@ -5,6 +5,7 @@ part of 'objectpictures.dart';
 ObjectPictures _$ObjectPicturesFromJson (Map<String, dynamic> json) => ObjectPictures()
   ..tipObjektaSlikeId= json['tipObjektaSlikeId'] as int?
   ..objekatId = json['objekatId'] as int?
+  ..imageData=json['imageData'] as String
   ..objekat= json['objekat'] == null
           ? null
           : Objekat.fromJson(json['object'] as Map<String, dynamic>);
@@ -12,5 +13,6 @@ ObjectPictures _$ObjectPicturesFromJson (Map<String, dynamic> json) => ObjectPic
   Map<String, dynamic> _$ObjectPicturesToJson(ObjectPictures instance) => <String, dynamic>{
       'tipObjektaSlikeId': instance.tipObjektaSlikeId,
       'objekatId'        : instance.objekatId,
-      'objekat'          : instance.objekat
+      'objekat'          : instance.objekat,
+      'imageData'        : instance.imageData
     };

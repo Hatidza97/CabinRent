@@ -2,7 +2,7 @@
 import '../model/objectpictures.dart';
 import 'base_provider.dart';
 
-class ObjectPicturesProvider extends BaseProvider<Object> {
+class ObjectPicturesProvider extends BaseProvider<ObjectPictures> {
  ObjectPicturesProvider() : super("TipObjektaSllike");
 
   @override
