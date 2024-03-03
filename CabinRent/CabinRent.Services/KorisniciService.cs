@@ -31,17 +31,71 @@ namespace CabinRent.Services
             var entity = context.Korisniks.Find(id);
             return _mapper.Map<Model.Korisnik>(entity);
         }
+        //public bool Delete(int id)
+        //{
+        //    var entity = context.Korisniks.Find(id);
+        //    if (entity != null)
+        //    {
+        //        context.Korisniks.Remove(entity);
+        //        context.SaveChanges();
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        //public bool Delete(int id)
+        //{
+        //    var korisnik = context.Korisniks.Find(id);
+        //    if (korisnik != null)
+        //    {
+        //        // Find and delete related records from KorisnikUloge table
+        //        var relatedUloge = context.KorisnikUloges.Where(u => u.KorisnikId == id);
+        //        context.KorisnikUloges.RemoveRange(relatedUloge);
+
+        //        var relatedObjects = context.Objekats.Where(u => u.KorisnikId == id);
+        //        context.Objekats.RemoveRange(relatedObjects);
+
+        //        // Delete the Korisnik record
+        //        context.Korisniks.Remove(korisnik);
+
+        //        // Save changes
+        //        context.SaveChanges();
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
         public bool Delete(int id)
         {
-            var entity = context.Korisniks.Find(id);
-            if (entity != null)
+            var korisnik = context.Korisniks.Find(id);
+            if (korisnik != null)
             {
-                context.Korisniks.Remove(entity);
+                // Find and delete related records from KorisnikUloge table
+                var relatedUloge = context.KorisnikUloges.Where(u => u.KorisnikId == id).ToList();
+                context.KorisnikUloges.RemoveRange(relatedUloge);
+
+                // Find related Objekats and their associated TipObjektaSlike
+                var relatedObjects = context.Objekats.Where(u => u.KorisnikId == id).ToList();
+                foreach (var objekat in relatedObjects)
+                {
+                    var relatedSlike = context.TipObjektaSllikes.Where(s => s.ObjekatId == objekat.ObjekatId).ToList();
+                    context.TipObjektaSllikes.RemoveRange(relatedSlike);
+                }
+
+                // Remove related Objekats
+                context.Objekats.RemoveRange(relatedObjects);
+
+                // Delete the Korisnik record
+                context.Korisniks.Remove(korisnik);
+
+                // Save changes
                 context.SaveChanges();
                 return true;
             }
             return false;
         }
+
+
+
         [HttpPost]
         public Model.Korisnik Insert(KorisniciInsertRequest request)
         {
@@ -101,6 +155,10 @@ namespace CabinRent.Services
             var query = context.Korisniks.Include(x => x.Objekats)
                 .Include(x => x.KorisnikUloges)
                 .AsQueryable();
+            if (request.KorisnikID != null)
+            {
+                query = query.Where(x => x.KorisnikId == request.KorisnikID);
+            }
             if (!string.IsNullOrWhiteSpace(request.Ime))
             {
                 query = query.Where(x => x.Ime.StartsWith(request.Ime));
@@ -121,7 +179,10 @@ namespace CabinRent.Services
             {
                 query = query.Where(x => x.Email.StartsWith(request.Email));
             }
-
+            if (request.Slika != null)
+            {
+                query = query.Where(x => x.Slika.Any());
+            }
             var list = query.ToList();
             return _mapper.Map<List<Model.Korisnik>>(list);
         }

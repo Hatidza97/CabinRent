@@ -140,10 +140,10 @@ namespace CabinRent.Services.Database
                 entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
 
                 entity.HasOne(d => d.Korisnik)
-                    .WithMany(p => p.KorisnikUloges)
-                    .HasForeignKey(d => d.KorisnikId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_korisnik");
+                   .WithMany(p => p.KorisnikUloges)
+                   .HasForeignKey(d => d.KorisnikId)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("fk_korisnik");
 
                 entity.HasOne(d => d.Uloga)
                     .WithMany(p => p.KorisnikUloges)

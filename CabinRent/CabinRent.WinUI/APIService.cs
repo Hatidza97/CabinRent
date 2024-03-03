@@ -1,5 +1,4 @@
 ﻿using Flurl.Http;
-using Flurl.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +12,8 @@ namespace CabinRent.WinUI
     public class APIService
     {
         private string _resource = null;
-        //public string _endpoint = Properties.Settings.Default.APIUrl;
-        public string _endpoint = "https://localhost:7012/api";
+        public string _endpoint = Properties.Settings.Default.APIUrl;
+        //public string _endpoint = "https://localhost:7012/api";
         public static string Username = null;
         public static string Password = null;
 
@@ -33,9 +32,14 @@ namespace CabinRent.WinUI
                     query = await search?.ToQueryString();
                 }
                 //  get all ako je null
-                var list = await $"{_endpoint}/{_resource}?{query}"
-                  .WithBasicAuth(Username, Password)
-                  .GetJsonAsync<T>();
+                //var list = await $"{_endpoint}/{_resource}?{query}"
+                //  .WithBasicAuth(Username, Password)
+                //  .GetJsonAsync<T>();
+
+                //return list;
+                var list = await $"{Properties.Settings.Default.APIUrl}/{_resource}?{query}"
+               .WithBasicAuth(Username, Password)
+               .GetJsonAsync<T>();
                 return list;
             }
             catch (FlurlHttpException ex)
