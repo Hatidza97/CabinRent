@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:async';
 
+import 'package:cabinrent_admin/models/search_result.dart';
 import 'package:cabinrent_admin/models/grad.dart';
 import 'package:cabinrent_admin/models/product.dart';
-import 'package:cabinrent_admin/models/search_result.dart';
+
 import 'package:cabinrent_admin/models/tipObjekta.dart';
 import 'package:cabinrent_admin/providers/grad_provider.dart';
 import 'package:cabinrent_admin/providers/korisnik_provider.dart';
@@ -21,7 +21,7 @@ import 'package:file_picker/file_picker.dart';
 
 class ProductInsertScreen extends StatefulWidget {
   Objekat? objekat;
-  ProductInsertScreen({super.key, this.objekat});
+  ProductInsertScreen({Key? key, this.objekat}) : super(key: key);
 
   @override
   State<ProductInsertScreen> createState() => _ProductInsertScreenState();
@@ -34,7 +34,6 @@ class _ProductInsertScreenState extends State<ProductInsertScreen> {
   late KorisnikProvider _userProvider;
   late TipObjektaProvider _objectTypeProvider;
   late ProductProvider _productProvider;
-  late PageController _pageController;
   Map<String, dynamic> _initialValue = {};
 
   SeearchResult<Grad>? gradResult;
@@ -60,9 +59,7 @@ class _ProductInsertScreenState extends State<ProductInsertScreen> {
       'cijena': widget.objekat?.cijena.toString(),
       'tipObjektaId': widget.objekat?.tipObjektaId.toString(),
       'korisnikId': Authorization.userId.toString(),
-      'objekatId': widget.objekat?.objekatId.toString()
-      // ,
-      // 'imageData': '',
+      'objekatId': widget.objekat?.objekatId.toString(),
     };
     _cityProvider = context.read<GradProvider>();
     _objectTypeProvider = context.read<TipObjektaProvider>();
@@ -78,22 +75,7 @@ class _ProductInsertScreenState extends State<ProductInsertScreen> {
     _userProvider = context.read<KorisnikProvider>();
     if (widget.objekat != null) {
       setState(() {
-        _formKey.currentState?.patchValue({
-          'naziv': widget.objekat?.naziv,
-          'povrsina': widget.objekat?.povrsina,
-          'brojMjestaDjeca': widget.objekat?.brojMjestaDjeca.toString(),
-          'brojMjestaOdrasli': widget.objekat?.brojMjestaOdrasli.toString(),
-          'brojMjestaUkupno': widget.objekat?.brojMjestaUkupno.toString(),
-          'opis': widget.objekat?.opis,
-          'rezervisan': false,
-          'gradId': widget.objekat?.gradId.toString(),
-          'cijena': widget.objekat?.cijena.toString(),
-          'tipObjektaId': widget.objekat?.tipObjektaId.toString(),
-          'korisnikId': Authorization.userId.toString(),
-          'objekatId': widget.objekat?.objekatId.toString()
-          // ,
-          // 'imageData': '',
-        });
+        _formKey.currentState?.patchValue(_initialValue);
       });
     }
   }
@@ -289,11 +271,64 @@ class _ProductInsertScreenState extends State<ProductInsertScreen> {
                     _base64Image ?? null, // Check if _base64Image is not null
               )),
             ]),
-          )
+          ),
+          ElevatedButton(
+            onPressed: _saveData,
+            child: Text("Sacuvaj"),
+          ),
         ],
       ),
     );
   }
+
+Future<void> _saveData() async {
+  // Save the data from the form
+  _formKey.currentState?.saveAndValidate();
+  var request = Map<String, dynamic>.from(_formKey.currentState!.value);
+
+  try {
+    // Insert the data into the database
+    var response = await _productProvider.insert(request);
+
+    // Show a success message using a dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text("Success"),
+        content: Text("Vaše izmjene su uspješno sačuvane!"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ProductListScreen(), // Redirect to ProductListScreen
+                ),
+              );
+            },
+            child: Text("OK"),
+          ),
+        ],
+      ),
+    );
+  } catch (e) {
+    // Show an error message using a dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text("Error"),
+        content: Text(e.toString()),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("OK"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
   Future getImage() async {
     var result = await FilePicker.platform.pickFiles(type: FileType.image);
@@ -308,8 +343,12 @@ class _ProductInsertScreenState extends State<ProductInsertScreen> {
 
         // Convert the bytes to base64
         _base64Image = base64Encode(imageBytes);
-        // print("base64$_base64Image");
 
+        // Update the form's imageData field with the base64 image data
+        _formKey.currentState?.fields['imageData']?.didChange(_base64Image);
+
+        // Call _saveData here
+        await _saveData();
       } else {
         print("No files selected");
       }
@@ -318,104 +357,11 @@ class _ProductInsertScreenState extends State<ProductInsertScreen> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
       title: 'Dodaj novi objekat',
-      child: Column(
-        children: [
-          _buildForm(),
-          ElevatedButton(
-            onPressed: () async {
-              _formKey.currentState?.saveAndValidate();
-              print("TRENUTNOSTANJE:${_formKey.currentState?.value}");
-
-              // Save the data from the form
-              var request =
-                  Map<String, dynamic>.from(_formKey.currentState!.value);
-
-              // Call the getImage function to select an image
-
-              // Check if an image was selected
-              if (_image != null) {
-                // Convert the image to base64
-                try {
-                  // Insert data into the first table
-                  await getImage();
-                  var response = await _productProvider.insert(request);
-
-                  // Get the objekatId from the first request
-                  String objekatId = response.objekatId.toString();
-                  print("Before");
-                  
-                  _base64Image = base64Encode(_image!.readAsBytesSync());
-                  // print("Start<---${_base64Image}->>>End");
-                  // Upload the image to the second table using _picturesProvider
-                  await _picturesProvider.insert({
-                    objekatId,
-                    _base64Image,
-                  });
-                  // await _picturesProvider.insert(jsonEncode({
-                  //   objekatId,
-                  //   _base64Image,
-                  // }));
-
-                  // Show a success message using a dialog
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: Text("Success"),
-                      content: Text("Vaše izmjene su uspješno sačuvane!"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context); // Close the dialog
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const ProductListScreen(),
-                              ),
-                            );
-                          },
-                          child: Text("OK"),
-                        ),
-                      ],
-                    ),
-                  );
-                } on Exception catch (e) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: Text("Error"),
-                      content: Text(e.toString()),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text("OK"),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              } else {
-                // Show an error message if no image is selected
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: Text("Error"),
-                    content: Text("Please select an image."),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text("OK"),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            },
-            child: Text("Sacuvaj"),
-          ),
-        ],
-      ),
+      child: _buildForm(),
     );
   }
 }

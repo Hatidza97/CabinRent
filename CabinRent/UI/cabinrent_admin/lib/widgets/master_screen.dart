@@ -3,6 +3,7 @@ import 'package:cabinrent_admin/screens/evidencija_izdavaca_screen.dart';
 import 'package:cabinrent_admin/screens/evidencija_rezervacija_screen.dart';
 import 'package:cabinrent_admin/screens/product_detail_screen.dart';
 import 'package:cabinrent_admin/screens/product_list_screen.dart';
+import 'package:cabinrent_admin/screens/report_screen.dart';
 import 'package:cabinrent_admin/screens/rezervacija_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -66,6 +67,13 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => EvidencijaRezervacijaScreen()));
+            },
+          ),
+           ListTile(
+            title: Text("Izvjestaj"),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => IzvjestajScreen()));
             },
           )
         ],

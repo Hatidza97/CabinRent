@@ -32,6 +32,8 @@ class _EvidencijaRezervacijaScreenState extends State<EvidencijaRezervacijaScree
   final _formKey = GlobalKey<FormBuilderState>();
   Map<String, dynamic> _initialValue = {};
 
+  SeearchResult<Rezervacija>? resultReservations;
+
   late ProductProvider _productProvider;
   late PicturesProvider _picturesProvider;
   late RezervacijaProvider _rezervacijaProvider;
@@ -66,11 +68,169 @@ class _EvidencijaRezervacijaScreenState extends State<EvidencijaRezervacijaScree
       title: 'Rezervacija',
       child: Container(
         child: Column(children: [
-          Text("REZERVACIJA"),
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  _buildSearchRezervacija(),
+                ],
+              ),
+            ),
+             Expanded(
+              child: _buildDataListView(),
+            ),
+             Expanded(
+              child: _buildMostReservedObjekat(),
+            ),
         ]),
       ),
     );
   }
+
+ int? mostReservedObjekat;
+Widget _buildMostReservedObjekat() {
+  return Padding(
+    padding: EdgeInsets.all(10),
+    child: Column( // Wrap in Column to accommodate multiple children
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            if (resultReservations != null && resultReservations!.result.isNotEmpty) {
+              // Map to count occurrences of ObjekatId
+              Map<int, int> objekatCount = {};
+              resultReservations?.result.forEach((reservation) {
+                int objekatId = reservation.objekatId!; // Assuming property name is objekatId
+                objekatCount[objekatId] = (objekatCount[objekatId] ?? 0) + 1;
+              });
+              // Find the ObjekatId with the maximum count
+              int mostReservedObjekatId = objekatCount.entries.fold(
+                objekatCount.keys.first, // Initialize with the first key
+                (prev, entry) {
+                  if (entry.value > objekatCount[prev]!) {
+                    return entry.key;
+                  } else {
+                    return prev;
+                  }
+                }
+              );
+              // Update UI with the most reserved ObjekatId
+              setState(() {
+                mostReservedObjekat = mostReservedObjekatId;
+              });
+            }
+          },
+          child: const Text('Pronadji objekat sa najviše rezervacija'),
+        ),
+        SizedBox(height: 20), // Add some space between button and text
+        if (mostReservedObjekat != null)
+          Text(
+            'Objekat sa najviše rezervacija (ID): $mostReservedObjekat',
+            style: TextStyle(fontSize: 16),
+          ),
+      ],
+    ),
+  );
+}
+
+  Widget _buildSearchRezervacija() {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: ElevatedButton(
+        onPressed: () async {
+          var data = await _rezervacijaProvider.get();
+          setState(() {
+            resultReservations = data;
+          });
+        },
+        child: const Text('Ucitaj sve rezervacije'),
+      ),
+    );
+  }
   
+
+  String formatDate(DateTime dateTime) {
+  // Convert DateTime to local timezone
+  dateTime = dateTime.toLocal();
+  // Get the ISO 8601 string representation of the DateTime
+  String isoString = dateTime.toIso8601String();
+  // Extract just the date part (YYYY-MM-DD)
+  String date = isoString.split('T')[0];
+  return date;
+}
+
+  Widget _buildDataListView() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: DataTable(
+          columns: const [
+            DataColumn(
+              label: Text(
+                "ID",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                "Datum prijave",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                "Datum odjave",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                "Broj djece",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                "Broj odraslih",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+              DataColumn(
+              label: Text(
+                "Rezervisani objekat (ID)",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+              DataColumn(
+              label: Text(
+                "Otkazano",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            )
+          ],
+          rows: resultReservations?.result
+                  .map(
+                    (Rezervacija e) => DataRow(
+                      onSelectChanged: (selected) {
+                        setState(() {
+                        });
+                      },
+                      cells: [
+                        DataCell(Text(e.rezervacijaId.toString() ?? "")),
+                        DataCell(Text(e.datumPrijave?.split('T')[0] ?? "")),
+                        DataCell(Text(e.datumOdjave?.split('T')[0] ?? "")),
+                        DataCell(Text(e.brojDjece.toString() ?? "")),
+                        DataCell(Text(e.brojOdraslih.toString() ?? "")),
+                        DataCell(Text(e.objekatId.toString() ?? "")),
+                        DataCell(Text(e.otkazano.toString()=='false'?'Nije otkazano':'Otkazano' ?? "")),
+                      
+                      ],
+                    ),
+                  )
+                  .toList() ??
+              [],
+        ),
+      ),
+    );
+  }
  
 }

@@ -12,8 +12,6 @@ import 'package:cabinrent_admin/utils/util.dart';
 import 'package:cabinrent_admin/widgets/master_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -26,14 +24,13 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   SeearchResult<Objekat>? result;
   SeearchResult<TipObjektaSllike>? resultPictures;
-  TextEditingController _nazivController = new TextEditingController();
+  TextEditingController _nazivController = TextEditingController();
 
   late ProductProvider _productProvider;
   late PicturesProvider _picturesProvider;
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     _productProvider = context.read<ProductProvider>();
     _picturesProvider = context.read<PicturesProvider>();
@@ -41,21 +38,23 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var data2 = _picturesProvider.get();
     return MasterScreenWidget(
       title: 'Svi objekti',
-      child: Container(
-        child: Column(children: [
+      child: Column(
+        children: [
           Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  _newObject(),
-                ],
-              )),
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                _newObject(),
+              ],
+            ),
+          ),
           _buildSearch(),
-          _buildDataListView()
-        ]),
+          Expanded(
+              child:
+                  _buildDataListView()), // Utilize Expanded to fill remaining space
+        ],
       ),
     );
   }
@@ -71,20 +70,22 @@ class _ProductListScreenState extends State<ProductListScreen> {
               controller: _nazivController,
             ),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(width: 8), // Adjust spacing
           ElevatedButton(
-              onPressed: () async {
-                var data = await _productProvider
-                    .get(filter: {'naziv': _nazivController.text});
-                var data2 = await _picturesProvider.get();
-                setState(() {
-                  result = data;
-                  resultPictures = data2;
-                  print("result:$result");
-                });
-                print("data: ${data.result[0].naziv}");
-              },
-              child: const Text('Pretraga')),
+            onPressed: () async {
+              var data = await _productProvider
+                  .get(filter: {'naziv': _nazivController.text});
+              var data2 = await _picturesProvider.get();
+              setState(() {
+                result = data;
+                resultPictures = data2;
+              });
+            },
+            child: const Text('Pretraga'),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue, // Add color to the button
+            ),
+          ),
         ],
       ),
     );
@@ -98,93 +99,103 @@ class _ProductListScreenState extends State<ProductListScreen> {
         );
       },
       child: const Row(
-        mainAxisSize:
-            MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.add),
-          SizedBox(
-              width: 8),
+          SizedBox(width: 8),
           Text('Dodaj novi objekat'),
         ],
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.green, // Add color to the button
       ),
     );
   }
 
-  Expanded _buildDataListView() {
-    return Expanded(
-        child: SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: DataTable(
-          columns: const [
-            DataColumn(
-                label: Expanded(
-              child: Text(
-                "ID",
-                style: TextStyle(fontStyle: FontStyle.italic),
+  Widget _buildDataListView() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal, // Allow horizontal scrolling
+      child: SingleChildScrollView(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width, // Set width to fill screen
+          child: DataTable(
+            columnSpacing: 16, // Adjust spacing between columns
+            columns: [
+              DataColumn(
+                label: SizedBox(
+                  child: Text(
+                    "ID",
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
               ),
-            )),
-            DataColumn(
-                label: Expanded(
-              child: Text(
-                "Naziv",
-                style: TextStyle(fontStyle: FontStyle.italic),
+              DataColumn(
+                label: SizedBox(
+                  child: Text(
+                    "Naziv",
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
               ),
-            )),
-            DataColumn(
-                label: Expanded(
-              child: Text(
-                "Povrsina",
-                style: TextStyle(fontStyle: FontStyle.italic),
+              DataColumn(
+                label: SizedBox(
+                  child: Text(
+                    "Povrsina",
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
               ),
-            )),
-            DataColumn(
-                label: Expanded(
-              child: Text(
-                "Slika",
-                style: TextStyle(fontStyle: FontStyle.italic),
+              DataColumn(
+                label: Text(
+                  "Slika",
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
               ),
-            ))
-          ],
-          rows: result?.result
-                  .map((Objekat e) => DataRow(
-                          onSelectChanged: (selected) => {
-                                if (selected == true)
-                                  {
-                                    // print("selected${e.objekatId}")
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => ProducDetailScreen(
-                                        objekat: e,
-                                      ),
-                                    ))
-                                  }
-                              },
-                          cells: [
-                            DataCell(Text(e.objekatId.toString() ?? "")),
-                            DataCell(Text(e.naziv ?? "")),
-                            DataCell(Text(e.povrsina ?? "")),
-                            DataCell(
-                              FutureBuilder<Widget>(
-                                future: _buildFirstImageWidget(e.objekatId),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return CircularProgressIndicator();
-                                  } else if (snapshot.hasError) {
-                                    return Text('Error: ${snapshot.error}');
-                                  } else {
-                                    return snapshot.data ?? Container();
-                                  }
-                                },
-                              ),
+            ],
+            rows: result?.result.map((Objekat e) {
+                  return DataRow(
+                    onSelectChanged: (selected) {
+                      if (selected == true) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProducDetailScreen(
+                              objekat: e,
                             ),
-                          ]))
-                  .toList() ??
-              [],
+                          ),
+                        );
+                      }
+                    },
+                    cells: [
+                      DataCell(Text(e.objekatId.toString() ?? "")),
+                      DataCell(Text(e.naziv ?? "")),
+                      DataCell(Text(e.povrsina ?? "")),
+                      DataCell(
+                        SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: FutureBuilder<Widget>(
+                            future: _buildFirstImageWidget(e.objekatId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return CircularProgressIndicator();
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return snapshot.data ?? Container();
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }).toList() ??
+                [],
+          ),
         ),
       ),
-    ));
+    );
   }
 
   Future<Widget> _buildFirstImageWidget(int? objekatId) async {
@@ -196,7 +207,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
         return Container(
           width: 100,
           height: 100,
-          child: imageFromBase64String(firstPicture.imageData ?? ""),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: MemoryImage(base64Decode(firstPicture.imageData ?? "")),
+              fit: BoxFit.cover,
+            ),
+          ),
         );
       } else {
         return Container();
